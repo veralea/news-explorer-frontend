@@ -1,0 +1,18 @@
+.navigation {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    grid-template-columns: repeat(auto-fit,auto);
+    color: inherit;
+}
+
+@media screen and (max-width: 480px) {
+    .navigation {
+        display: none;
+    }
+
+    .navigation_state_logged, .navigation_state_not-logged {
+        grid-template-columns: 1fr;
+    }
+
+}

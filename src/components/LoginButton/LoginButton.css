@@ -1,0 +1,20 @@
+.login-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 1px solid white;
+    box-sizing: border-box;
+    border-radius: 100px;
+    height: 48px;
+    width: fit-content;
+    min-width: 112px;
+    cursor: pointer;
+    color: inherit;
+    background: transparent;
+}
+
+@media screen and (max-width: 480px) {
+    .login-button {
+        width: 90%;
+    }    
+}

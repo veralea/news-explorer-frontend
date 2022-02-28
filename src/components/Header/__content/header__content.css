@@ -1,0 +1,25 @@
+.header__content {
+    width: inherit;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: white; 
+    box-sizing: border-box;
+    /* padding: 30px 104px 26px; */
+    padding: 0 104px;
+}
+
+@media screen and (max-width: 768px) {
+  .header__content {
+    padding: 0 40px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+    .header__content {
+      padding: 0 16px;
+    }
+}

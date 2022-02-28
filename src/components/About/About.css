@@ -1,0 +1,20 @@
+.about {
+    background-color: white;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    padding-bottom: 80px;
+}
+
+@media screen and (max-width: 768px) {
+    .about {
+        padding-bottom: 64px;
+    }  
+}
+
+@media screen and (max-width: 480px) {
+    .about {
+        padding-bottom: 176px;
+    }  
+}

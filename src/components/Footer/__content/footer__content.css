@@ -1,0 +1,24 @@
+.footer__content {
+    width: 100vw;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+}
+
+@media screen and (max-width: 768px) {
+    .footer__content {
+        max-width: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer__content {
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+}

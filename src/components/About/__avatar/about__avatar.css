@@ -1,0 +1,24 @@
+.about__avatar {
+    min-height: 464px;
+    width: 464px;
+    margin: auto;
+    border-radius: 50%;
+    background-image: url(../../../images/avatar.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+@media screen and (max-width: 768px) {
+    .about__avatar {
+        min-height: 232px;
+        width: 232px; 
+    }  
+}
+
+@media screen and (max-width: 480px) {
+    .about__avatar {
+        min-height: 272px;
+        width: 272px; 
+    }  
+}

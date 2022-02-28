@@ -1,0 +1,13 @@
+@media screen and (max-width: 480px) {
+    .navigation_dropdown {
+        display: block;
+        height: fit-content;
+        position: absolute;
+        top: 56px;
+        right: 0;
+        width: 100%;
+        background-color: #1A1B22;
+        z-index: 0;
+        width: 100%;
+    }
+}
