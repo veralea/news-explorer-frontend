@@ -30,6 +30,7 @@
     .news-card-list__cards-grid {
         grid-template-columns: 288px;
         grid-gap: 10px;
-        justify-content: center;   
+        justify-content: center; 
+        align-items: center;  
     }   
 }

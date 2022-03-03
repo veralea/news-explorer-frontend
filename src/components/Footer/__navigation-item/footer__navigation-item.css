@@ -1,12 +1,5 @@
 .footer__navigation-item {
-    line-height: 80px;
     align-self: center;
-}
-
-@media screen and (max-width: 768px) {
-    .footer__navigation-item {
-        line-height: 64px; 
-    }
 }
 
 @media screen and (max-width: 480px) {

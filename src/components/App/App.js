@@ -84,7 +84,7 @@ function App() {
           <Main search={handleSearchSubmit}/>
           <Preloader />
           <ErrorSearch />
-          <NewsCardList cards={cards}/>
+          <NewsCardList cards={cards}/> 
           <About />         
         </Route> 
         <Route exact path="/saved-news">
@@ -92,7 +92,7 @@ function App() {
             name="Elise" 
             quantitySavedCards={cards.length}
             strKeywords={strKeywords}
-          />
+          /> 
           <SavedNews cards={cards}/>
         </Route>         
       </Switch>

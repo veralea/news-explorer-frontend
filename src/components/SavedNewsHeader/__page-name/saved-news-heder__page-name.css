@@ -1,8 +1,8 @@
 .saved-news-heder__page-name {
     margin-block-start: 0;
     margin-block-end: 0;
-    margin: 0 0 28px 104px;
-    font-family: Roboto;
+    margin: 0 0 28px;
+    font-family: Roboto, Arial, sans-serif;
     font-weight: 400;
     font-size: 18px;
     line-height: 1.33;
@@ -11,14 +11,14 @@
 
 @media screen and (max-width: 768px) {
     .saved-news-heder__page-name {
-        margin: 0 0 16px 40px;
+        margin: 0 0 16px;
         font-size: 14px;
     } 
 }
 
 @media screen and (max-width: 480px) {
     .saved-news-heder__page-name {
-        margin: 0 0 16px 16px;
+        margin: 8px 0 16px;
         font-size: 12px;
         line-height: 2;
     } 

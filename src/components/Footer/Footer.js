@@ -16,24 +16,29 @@ function Footer() {
                             <a 
                                 className="footer__navigation-link" 
                                 href="https://practicum.yandex.com" 
-                                target="_blank"
-                                rel="noreferrer"
+                                rel="noopener noreferrer"
                             >
                                 Practicum by Yandex
                             </a>
                         </li>
                         <li className="footer__navigation-item footer__navigation-item_gh">    
-                            <a className="footer__navigation-link" href="//https://github.com/veralea">
+                            <a className="footer__navigation-link" 
+                            href="https://github.com/veralea"
+                            target="_blank"
+                            rel="noopener noreferrer">
                                 <div className="footer__social footer__social-github"></div>
                             </a>
                         </li>
                         <li className="footer__navigation-item footer__navigation-item_fb">    
-                            <a className="footer__navigation-link" href="https://www.facebook.com/profile.php?id=100015397681525">
+                            <a className="footer__navigation-link" 
+                            href="https://www.facebook.com/profile.php?id=100015397681525"
+                            target="_blank"
+                            rel="noopener noreferrer">
                                 <div className="footer__social footer__social-facebook"></div>
                             </a>
                         </li>
                     </ul>
-                </nav>
+                </nav> 
             </div>
         </footer>
     );

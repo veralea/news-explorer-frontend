@@ -11,8 +11,8 @@ if(props.isLogged){
     } else {
         return (
             <button className={window.location.href.includes("/saved-news") 
-            ? "login-button login-button_black" 
-            : "login-button "} onClick={props.onLoginButtonClick}>
+            ? "login-button login-button_not-logged login-button_black" 
+            : "login-button login-button_not-logged"} onClick={props.onLoginButtonClick}>
                 <span className="login-button__text">Sign in</span>
             </button>
         );

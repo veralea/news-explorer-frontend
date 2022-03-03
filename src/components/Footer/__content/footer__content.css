@@ -1,7 +1,8 @@
 .footer__content {
-    width: 100vw;
+    width: inherit;
     max-width: 1440px;
     margin: 0 auto;
+    padding: 0 104px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -11,12 +12,20 @@
 
 @media screen and (max-width: 768px) {
     .footer__content {
-        max-width: none;
+        padding: 0 40px;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    .footer__content {
+        justify-content: center;
+        
     }
 }
 
 @media screen and (max-width: 480px) {
     .footer__content {
+        padding: 0;
         flex-direction: column-reverse;
         justify-content: center;
         align-items: center;

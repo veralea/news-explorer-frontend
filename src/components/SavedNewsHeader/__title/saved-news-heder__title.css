@@ -3,8 +3,7 @@
     margin-block-end: 0;
     margin-inline-start: 0;
     margin-inline-end: 0;
-    margin-left: 104px;
-    font-family: Roboto Slab;
+    font-family: Roboto Slab, Arial, sans-serif;
     font-weight: 400;
     font-size: 40px;
     line-height: 1.15;
@@ -14,7 +13,6 @@
 
 @media screen and (max-width: 768px) {
     .saved-news-heder__title {
-        margin-left: 40px;
         width: 336px;
         font-size: 30px;
         line-height: 1.13;
@@ -23,7 +21,6 @@
 
 @media screen and (max-width: 480px) {
     .saved-news-heder__title {
-        margin-left: 16px;
         width: 288px;
     } 
 }

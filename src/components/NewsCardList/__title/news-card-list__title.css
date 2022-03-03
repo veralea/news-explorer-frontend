@@ -3,7 +3,7 @@
     margin-block-end: 0;
     align-self: flex-start;
     margin: 16px 0 64px; 
-    font-family: Roboto Slab;
+    font-family: Roboto Slab, Arial, sans-serif;
     font-weight: 400;
     font-size: 40px;
     line-height: 1.15;
@@ -12,7 +12,7 @@
 
 @media screen and (max-width: 768px) {
     .news-card-list__title {
-        margin: 0 0 16px;
+        margin: 0 0 32px;
         font-size: 30px;
         line-height: 1.13;
     } 

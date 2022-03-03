@@ -1,18 +1,10 @@
 .footer__navigation {
     display: block;
     height: inherit;
-    margin-right: 106px;
-}
-
-@media screen and (max-width: 768px) {
-    .footer__navigation {
-        margin: 0 40px; 
-    } 
 }
 
 @media screen and (max-width: 480px) {
     .footer__navigation {
-        margin: 0;
         height: fit-content;
     } 
 }

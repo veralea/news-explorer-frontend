@@ -2,12 +2,12 @@
     position: absolute;
     bottom: 0;
     left: 0;
+    width: 100%;
     min-height: 80px;
-    background: transparent;
+    background: white;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    width: 100%;
+    justify-content: center;   
     box-sizing: border-box;
 }
 

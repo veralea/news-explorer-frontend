@@ -1,4 +1,9 @@
 .navigation__content {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0;
     display: grid;
     grid-gap: 0 20px;
     justify-content: end;
@@ -7,11 +12,12 @@
     height: inherit;
     margin: 0;
     color: inherit;
+    box-sizing: border-box;
 }
 
 @media screen and (max-width: 480px) {
     .navigation__content {
         width: 100%;
-        padding: 16px;
+        padding: 16px;       
     }
 }
