@@ -1,0 +1,13 @@
+.footer__copy {
+    font-family: Roboto, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.37;
+    color: #B6BCBF;
+}
+
+@media screen and (max-width: 480px) {
+    .footer__copy {
+        margin: 38px auto 0;
+    } 
+}

@@ -1,0 +1,11 @@
+.preloader {
+	/* padding: 80px auto; */
+	min-height: 282px;
+	background-color: #F5F6F7;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	/* display: none; */
+}

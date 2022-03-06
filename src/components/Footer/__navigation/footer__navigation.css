@@ -1,0 +1,10 @@
+.footer__navigation {
+    display: block;
+    height: inherit;
+}
+
+@media screen and (max-width: 480px) {
+    .footer__navigation {
+        height: fit-content;
+    } 
+}

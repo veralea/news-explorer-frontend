@@ -1,0 +1,10 @@
+.navigation_state_not-logged {
+    grid-template-columns: repeat(2,auto);  
+}
+
+@media screen and (max-width: 480px) {
+    .navigation_state_not-logged {
+        grid-template-columns: 1fr;
+    }
+
+}

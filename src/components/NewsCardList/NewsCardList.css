@@ -1,0 +1,10 @@
+.news-card-list {
+    width: 100%;
+    background-color: #F5F6F7;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+

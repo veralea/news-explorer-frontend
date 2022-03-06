@@ -1,0 +1,22 @@
+.news-card__bage {
+    position: absolute;
+    top: 24px;
+    min-height: 40px;
+    background-color: white;
+    border-radius: 8px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .news-card__bage {
+        top: 8px; 
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .news-card__bage {
+        top: 16px; 
+    }
+}

@@ -1,0 +1,18 @@
+.news-card__wrop {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 304px;
+}
+
+@media screen and (max-width: 768px ) {
+    .news-card__wrop {
+        min-height: 270px; 
+    }
+}
+
+@media screen and (max-width: 480px ) {
+    .news-card__wrop {
+        min-height: 244px; 
+    }
+}

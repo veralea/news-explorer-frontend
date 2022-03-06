@@ -1,0 +1,17 @@
+.preloader__text {
+	margin-block-start: 0;
+    margin-block-end: 0;
+	font-family: Roboto, Arial, sans-serif;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 1.33;
+	text-align: center;
+	color: #B6BCBF;
+	margin-bottom: 80px;
+}
+
+@media screen and (max-width: 480px) {
+    .preloader__text {
+        width: calc(100vv - 32px);
+    } 
+}

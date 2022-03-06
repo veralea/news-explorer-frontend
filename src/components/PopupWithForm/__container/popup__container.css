@@ -1,0 +1,8 @@
+.popup__container {
+  width: fit-content;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 5px;
+  z-index: 6;
+}

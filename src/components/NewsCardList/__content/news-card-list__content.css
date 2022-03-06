@@ -1,0 +1,21 @@
+.news-card-list__content {
+    width: 1440px;
+    padding: 62px 104px 142px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 768px ) {
+  .news-card-list__content {
+    padding: 40px 40px 96px;
+  }
+}
+
+@media screen and (max-width: 480px ) {
+  .news-card-list__content {
+    padding: 32px 16px 200px;
+  }
+}

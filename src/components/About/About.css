@@ -1,0 +1,21 @@
+.about {
+    box-sizing: border-box;
+    background-color: white;   
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 104px 160px;
+}
+
+@media screen and (max-width: 820px) {
+    .about {
+        padding: 61px 40px 125px;
+    }  
+}
+
+@media screen and (max-width: 480px) {
+    .about {
+        padding-bottom: 176px;
+    }  
+} 

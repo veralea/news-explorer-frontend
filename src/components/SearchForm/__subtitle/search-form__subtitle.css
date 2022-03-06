@@ -1,0 +1,22 @@
+.search-form__subtitle {
+    color: white;
+    width: 608px;
+    margin: 0 auto;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.33;
+
+}
+
+@media screen and (max-width: 768px) {
+    .search-form__subtitle {
+        width: 448px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .search-form__subtitle {
+        width: 288px;
+    }    
+}

@@ -1,0 +1,26 @@
+.saved-news-heder__title {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-family: Roboto Slab, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 1.15;
+    color: #1A1B22;
+    width: 530px;
+}
+
+@media screen and (max-width: 768px) {
+    .saved-news-heder__title {
+        width: 336px;
+        font-size: 30px;
+        line-height: 1.13;
+    } 
+}
+
+@media screen and (max-width: 480px) {
+    .saved-news-heder__title {
+        width: 288px;
+    } 
+}
