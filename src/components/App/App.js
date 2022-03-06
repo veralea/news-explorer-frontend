@@ -11,9 +11,12 @@ import Preloader from '../Preloader/Preloader';
 import NewsCardList from '../NewsCardList/NewsCardList';
 import ErrorSearch from '../ErrorSearch/ErrorSearch';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import cards from '../../utils/constants';
 
 function App() {
+  const currentUser = localStorage.getItem('currentUser');
+
   const [strKeywords, setStrKeywords] = useState(' ');
   const [isSigninPopupOpen, setIsSigninPopupOpen] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
@@ -75,36 +78,38 @@ function App() {
 
   return (
     <div className="page">
-      <Header 
-        onLoginButtonClick={handleLoginButtonClick}
-        isLogged={isLogged}
-      />
-      <Switch>
-        <Route exact path="/">
-          <Main search={handleSearchSubmit}/>
-          <Preloader />
-          <ErrorSearch />
-          <NewsCardList cards={cards}/> 
-          <About />         
-        </Route> 
-        <Route exact path="/saved-news">
-          <SavedNewsHeader  
-            name="Elise" 
-            quantitySavedCards={cards.length}
-            strKeywords={strKeywords}
-          /> 
-          <SavedNews cards={cards}/>
-        </Route>         
-      </Switch>
-      <PopupWithForm 
-              name='signin' 
-              title='Sign in' 
-              isOpen={isSigninPopupOpen}
-              onClose={closeAllPopups}
-              buttonText='Sign in'
-              onSubmit={handleLoginFormSubmit}
-      />
-      <Footer />
+      <CurrentUserContext.Provider value={currentUser}>
+        <Header 
+          onLoginButtonClick={handleLoginButtonClick}
+          isLogged={isLogged}
+        />
+        <Switch>
+          <Route exact path="/">
+            <Main search={handleSearchSubmit}/>
+            <Preloader />
+            <ErrorSearch />
+            <NewsCardList cards={cards}/> 
+            <About />         
+          </Route> 
+          <Route exact path="/saved-news">
+            <SavedNewsHeader  
+              name="Elise" 
+              quantitySavedCards={cards.length}
+              strKeywords={strKeywords}
+            /> 
+            <SavedNews cards={cards}/>
+          </Route>         
+        </Switch>
+        <PopupWithForm 
+                name='signin' 
+                title='Sign in' 
+                isOpen={isSigninPopupOpen}
+                onClose={closeAllPopups}
+                buttonText='Sign in'
+                onSubmit={handleLoginFormSubmit}
+        />
+        <Footer />
+      </CurrentUserContext.Provider>
     </div>
   );
 }
