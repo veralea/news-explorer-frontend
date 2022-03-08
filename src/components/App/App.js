@@ -16,7 +16,7 @@ import statCards from '../../utils/constants';
 import newsApi from '../../utils/NewsApi';
 
 function App() {
-  const currentUser = localStorage.getItem('currentUser');
+  const currentUser = localStorage.getItem('currentUser'); 
 
   const [strKeywords, setStrKeywords] = useState(' ');
   const [isSigninPopupOpen, setIsSigninPopupOpen] = useState(false);
