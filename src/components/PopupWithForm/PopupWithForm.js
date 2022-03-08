@@ -35,7 +35,7 @@ function PopupWithForm(props) {
                 className="button popup__button">
                 {props.buttonText}
             </button>
-            <p className="popup__link">
+            <p className="popup__link" onClick={props.onSignupLinkClick}>
                 or <span className="popup__link_blue">Sign up</span>
             </p>
             </form>

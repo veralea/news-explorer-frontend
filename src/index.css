@@ -72,6 +72,7 @@
 @import url(./components/PopupWithForm/__label/popup__label.css);
 @import url(./components/PopupWithForm/__link/popup__link.css);
 @import url(./components/PopupWithForm/__title/popup__title.css);
+@import url(./components/PopupWithForm/__submit-error/popup__submit-error.css);
 @import url(./components/Preloader/__circle-preloader/preloader__circle-preloader.css);
 @import url(./components/Preloader/__text/preloader__text.css);
 @import url(./components/SavedNewsHeader/__content/saved-news-heder__content.css);
@@ -87,6 +88,7 @@
 @import url(./components/PopupWithForm/_opened/popup_opened.css);
 @import url(./components/PopupWithForm/__button/popup__button_disabled.css);
 @import url(./components/PopupWithForm/__link/popup__link_blue.css);
+@import url(./components/PopupWithForm/__submit-error/_hidden/popup__submit-error_hidden.css);
 @import url(./components/Header/__content/_black/header__content_black.css);
 @import url(./components/Header/__menu-icon/_black/header__menu-icon_black.css);
 @import url(./components/Header/__menu-icon/_close/header__menu-icon_close.css);

@@ -16,7 +16,7 @@ function NewsCardList(props) {
     }
 
     return (
-        <section className={props.sectionClassName}>
+        <section className={`news-card-list ${props.isOpen ? '' : 'news-card-list_hidden'}`}>
             <div className='news-card-list__content'>
                 <h2 className="news-card-list__title">Search results</h2>
                 <ul className="news-card-list__cards-grid">
