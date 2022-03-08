@@ -1,6 +1,6 @@
 function ErrorSearch(props) {
     return (
-        <section className="preloader">
+        <section className={props.sectionClassName}>
             <i className="error-search__icon"/>
             <h4 className="error-search__title">Nothing found</h4>
             <p className="preloader__text">

@@ -12,7 +12,8 @@ import NewsCardList from '../NewsCardList/NewsCardList';
 import ErrorSearch from '../ErrorSearch/ErrorSearch';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import cards from '../../utils/constants';
+import statCards from '../../utils/constants';
+import newsApi from '../../utils/NewsApi';
 
 function App() {
   const currentUser = localStorage.getItem('currentUser');
@@ -20,9 +21,27 @@ function App() {
   const [strKeywords, setStrKeywords] = useState(' ');
   const [isSigninPopupOpen, setIsSigninPopupOpen] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
-
+  const [cards, setCards] = useState(statCards);
+  const [cardListClassName, setCardListClassName] = useState("news-card-list news-card-list_hidden");
+  const [errorSearchClassName, setErrorSearchClassName] = useState("preloader preloader_hidden");
+  const [preloaderClassName, setPreloaderClassName] = useState("preloader preloader_hidden");
+  
   function handleSearchSubmit(tag) {
-    alert(tag);
+    setPreloaderClassName("preloader");
+    newsApi.getNews(tag)
+    .then(result => {
+      setCards(result.articles);
+      return result.articles;
+    })
+    .then( articles => {
+      setPreloaderClassName("preloader preloader_hidden");
+      if (articles.length > 0) {
+        setCardListClassName("news-card-list");
+      } else {
+        setErrorSearchClassName("preloader");
+      }
+    })
+    .catch((err) => console.log(err));
   }
 
   function closeAllPopups() {
@@ -86,9 +105,16 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Main search={handleSearchSubmit}/>
-            <Preloader />
-            <ErrorSearch />
-            <NewsCardList cards={cards}/> 
+            <Preloader 
+              sectionClassName={preloaderClassName}
+            />
+            <ErrorSearch
+              sectionClassName={errorSearchClassName}
+            />
+            <NewsCardList 
+              cards={cards}
+              sectionClassName={cardListClassName}
+            /> 
             <About />         
           </Route> 
           <Route exact path="/saved-news">

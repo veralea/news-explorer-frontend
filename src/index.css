@@ -59,6 +59,7 @@
 @import url(./components/NewsCard/__title/news-card__title.css);
 @import url(./components/NewsCard/__tooltip/news-card__tooltip.css);
 @import url(./components/NewsCard/__wrop/news-card__wrop.css);
+@import url(./components/NewsCard/__link/news-card__link.css);
 @import url(./components/NewsCardList/__cards-grid/news-card-list__cards-grid.css);
 @import url(./components/NewsCardList/__content/news-card-list__content.css);
 @import url(./components/NewsCardList/__show-more-button/news-card__show-more-button.css);
@@ -102,10 +103,11 @@
 @import url(./components/NewsCard/__keyword/_hidden/news-card__keyword_hidden.css);
 @import url(./components/NewsCard/__like/_hidden/news-card__like_hidden.css);
 @import url(./components/NewsCard/__tooltip/_delete/news-card__tooltip_delete.css);
-@import url(./components/PopupWithForm/__button/popup__button_disabled.css);
-@import url(./components/PopupWithForm/__link/popup__link_blue.css);
-@import url(./components/PopupWithForm/_opened/popup_opened.css);
+@import url(./components/NewsCardList/_hidden/news-card-list_hidden.css);
+@import url(./components/NewsCardList/__show-more-button/_disable/news-card__show-more-button_disable.css);
 @import url(./components/Footer/__navigation-item/footer__navigation-item_fb.css);
 @import url(./components/Footer/__navigation-item/footer__navigation-item_gh.css);
 @import url(./components/Footer/__navigation-item/footer__navigation-item_home.css);
 @import url(./components/Footer/__navigation-item/footer__navigation-item_py.css);
+@import url(./components/Preloader/_hidden/preloader_hidden.css);
+

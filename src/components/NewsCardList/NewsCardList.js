@@ -3,16 +3,20 @@ import NewsCard from '../NewsCard/NewsCard';
 
 function NewsCardList(props) {
     const [quantityCards , setQuantityCards] = useState(Math.min(3,props.cards.length));
+    const [showMoreButtonClassName, setShowMoreButtonClassName] = useState("news-card__show-more-button");
     
     function showMore() {
         if (props.cards.length > quantityCards) {
-            setQuantityCards(Math.min(quantityCards + 3, props.cards.length));
+            let currQuantityCards = Math.min(quantityCards + 3, props.cards.length);
+            setQuantityCards(currQuantityCards);
+            if (currQuantityCards === props.cards.length) {
+                setShowMoreButtonClassName("news-card__show-more-button news-card__show-more-button_disable");
+            }
         }
     }
 
-
     return (
-        <section className="news-card-list">
+        <section className={props.sectionClassName}>
             <div className='news-card-list__content'>
                 <h2 className="news-card-list__title">Search results</h2>
                 <ul className="news-card-list__cards-grid">
@@ -22,7 +26,7 @@ function NewsCardList(props) {
                         })
                     }
                 </ul>
-                <button className="news-card__show-more-button" onClick={showMore}>
+                <button className={showMoreButtonClassName} onClick={showMore}>
                     Show more
                 </button>
             </div>
