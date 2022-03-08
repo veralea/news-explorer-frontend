@@ -10,7 +10,6 @@ function getResponseData(res) {
 }
 
 export const register = (email, password, username) => {
-  console.log(username);
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {

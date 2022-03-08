@@ -21,7 +21,7 @@ import mainApi from '../../utils/MainApi';
 import * as auth from '../../utils/auth';
 
 function App() {
-  const currentUser = localStorage.getItem('currentUser'); 
+  const token = localStorage.getItem('token'); 
 
   const [strKeywords, setStrKeywords] = useState(' ');
   const [isSigninPopupOpen, setIsSigninPopupOpen] = useState(false);
@@ -34,6 +34,7 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [cards, setCards] = useState(statCards);
   const [isErrorSubmitVisibled, setIsErrorSubmitVisibled] = useState(false);
+  const [currentUser, setCurrentUser] = useState({}); 
   
   function handleSearchSubmit(tag) {
     setIsCardListOpen(false);
@@ -107,12 +108,21 @@ function App() {
   function handleLoginFormSubmit(e,email, password) {
     e.preventDefault();
     setIsErrorSubmitVisibled(false);  
-    auth.authorize(email, password).then((res) => {
+    auth.authorize(email, password)
+    .then((res) => {
       console.log(res.token); 
       localStorage.setItem('token', res.token);
       setIsLogged(true);
       setIsSigninPopupOpen(false);
       setIsErrorSubmitVisibled(false);
+      return res;
+    })
+    .then((res) => {
+      auth.getContent(res.token)
+      .then((res) => {
+        setCurrentUser(res);
+        setIsLogged(true);
+      })
     })
     .catch((err) => {
       setIsErrorSubmitVisibled(true);
@@ -164,6 +174,21 @@ function App() {
     document.addEventListener('keydown', closeByEscape);  
     return () => document.removeEventListener('keydown', closeByEscape);
   }, [])
+
+  useEffect(() => {
+    if (token) {   
+      auth.getContent(token)
+      .then((res) => {
+        setCurrentUser(res);
+        setIsLogged(true);
+      })
+      .catch((err) => {
+        console.log(err);
+       });
+    } else {
+      setIsLogged(false);
+    }
+  },[]);
 
   return (
     <div className="page">

@@ -1,19 +1,24 @@
+import { useContext } from 'react'; 
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+
 function LoginButton(props) {
-if(props.isLogged){
-        return (
-            <div className={window.location.href.includes("/saved-news") 
-                ? "login-button login-button_black" 
-                : "login-button "}>
-                <span className="login-button__text">{props.name}</span>
-                <div 
-                    className={window.location.href.includes("/saved-news") 
-                        ? "login-button__exit-icon login-button__exit-icon_black" 
-                        :"login-button__exit-icon"}
-                    onClick={props.onLogoutButtonClick}
-                >
+    const currentUser = useContext(CurrentUserContext);
+
+    if(props.isLogged){
+            return (
+                <div className={window.location.href.includes("/saved-news") 
+                    ? "login-button login-button_black" 
+                    : "login-button "}>
+                    <span className="login-button__text">{currentUser.name}</span>
+                    <div 
+                        className={window.location.href.includes("/saved-news") 
+                            ? "login-button__exit-icon login-button__exit-icon_black" 
+                            :"login-button__exit-icon"}
+                        onClick={props.onLogoutButtonClick}
+                    >
+                    </div>
                 </div>
-            </div>
-        );
+            );
     } else {
         return (
             <button className={window.location.href.includes("/saved-news") 
