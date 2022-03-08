@@ -99,10 +99,26 @@ function App() {
     setIsSigninPopupOpen(true);
   }
 
-  function handleLoginFormSubmit(e) {
+  function handleLogoutButtonClick() {
+    setIsLogged(false);
+    localStorage.removeItem('token');
+  }
+
+  function handleLoginFormSubmit(e,email, password) {
     e.preventDefault();
-    setIsLogged(true);
-    setIsSigninPopupOpen(false);
+    setIsErrorSubmitVisibled(false);  
+    auth.authorize(email, password).then((res) => {
+      console.log(res.token); 
+      localStorage.setItem('token', res.token);
+      setIsLogged(true);
+      setIsSigninPopupOpen(false);
+      setIsErrorSubmitVisibled(false);
+    })
+    .catch((err) => {
+      setIsErrorSubmitVisibled(true);
+      setErrorText(err);
+      setIsLogged(false);
+    });
   }
 
   function handleLogupFormSubmit(e, email, password, username) {
@@ -114,7 +130,6 @@ function App() {
       setIsErrorSubmitVisibled(false);
     })
     .catch((err) => {
-      console.log(err);
       setIsErrorSubmitVisibled(true);
       setErrorText(err);
     });
@@ -155,6 +170,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Header 
           onLoginButtonClick={handleLoginButtonClick}
+          onLogoutButtonClick={handleLogoutButtonClick}
           isLogged={isLogged}
         />
         <Switch>
@@ -189,7 +205,10 @@ function App() {
                 onClose={closeAllPopups}
                 buttonText='Sign in'
                 onSignupLinkClick={handleSignupLinkClick}
-                onSubmit={handleLoginFormSubmit}
+                login={handleLoginFormSubmit}
+                useForm={useFormWithValidation}
+                isErrorSubmitVisibled = {isErrorSubmitVisibled}
+                errorText = {errorText}
         />
         <Register 
                 name='signup' 

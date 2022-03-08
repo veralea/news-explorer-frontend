@@ -25,6 +25,7 @@ function Navigation(props) {
             isLogged={props.isLogged} 
             name={props.name} 
             onLoginButtonClick={props.onLoginButtonClick}
+            onLogoutButtonClick={props.onLogoutButtonClick}
           />  
         </li>           
       </ul>  

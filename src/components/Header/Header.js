@@ -29,6 +29,7 @@ function Header(props) {
               isLogged={props.isLogged} 
               name="Elise" 
               onLoginButtonClick={props.onLoginButtonClick}
+              onLogoutButtonClick={props.onLogoutButtonClick}
             />
             <div 
               className={window.location.href.includes("/saved-news") 

@@ -9,4 +9,10 @@
     align-self: center;
     justify-self: center;
     margin-left: 10px;
+    cursor: pointer;
 }
+
+.login-button__exit-icon:hover {
+    opacity: 0.8;
+}
+
