@@ -34,9 +34,38 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [cards, setCards] = useState(statCards);
   const [isErrorSubmitVisibled, setIsErrorSubmitVisibled] = useState(false);
-  const [currentUser, setCurrentUser] = useState({}); 
+  const [currentUser, setCurrentUser] = useState({});
+  const [currentKeyword, setCurrentKeyword] = useState(''); 
+  const [savedCards, setSavedCards] = useState([])
+  
+  function handleSaveButtonClick(card) {
+    mainApi.saveCard(card, currentKeyword)
+    .then(() => {
+      mainApi.getAllArticles()
+      .then((result) => {
+        setSavedCards(result);
+      })
+      .catch((err) => console.log(err));
+    })
+    .catch((err) => console.log(err));
+  }
+
+  function handleDeleteButtonClick(card) {
+    mainApi.deleteCard(card._id)
+    .then(() => {
+      mainApi.getAllArticles()
+      .then((result) => {
+        setSavedCards(result);
+      })
+      .catch((err) => console.log(err));
+    })
+    .catch((err) => console.log(err));
+  }
+
+
   
   function handleSearchSubmit(tag) {
+    setCurrentKeyword(tag);
     setIsCardListOpen(false);
     setIsErrorSearchOpen(false);
     setIsPreloaderOpen(true);
@@ -70,7 +99,7 @@ function App() {
   }
 
   useEffect(() => {
-    const keywords = cards.reduce((previousValue, item, index, array) => {
+    const keywords = savedCards.reduce((previousValue, item, index, array) => {
       const result = previousValue.find(el => {
         if (el) {
           return el.keyword === item.keyword;
@@ -190,6 +219,14 @@ function App() {
     }
   },[]);
 
+  useEffect(() => {
+    mainApi.getAllArticles()
+    .then((result) => {
+      setSavedCards(result);
+    })
+    .catch((err) => console.log(err));
+  },[]);
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -211,16 +248,17 @@ function App() {
             <NewsCardList 
               cards={cards}
               isOpen={isCardListOpen}
+              isLogged={isLogged}
+              onSaveButtonClick={handleSaveButtonClick}
             /> 
             <About />         
           </Route> 
           <Route exact path="/saved-news">
-            <SavedNewsHeader  
-              name="Elise" 
-              quantitySavedCards={cards.length}
+            <SavedNewsHeader   
+              quantitySavedCards={savedCards.length}
               strKeywords={strKeywords}
             /> 
-            <SavedNews cards={cards}/>
+            <SavedNews cards={savedCards} onDeleteButtonClick={handleDeleteButtonClick}/>
           </Route>         
         </Switch>
         <PopupWithForm 

@@ -22,7 +22,12 @@ function NewsCardList(props) {
                 <ul className="news-card-list__cards-grid">
                     {
                         props.cards.slice(0,quantityCards).map((card, ind) => {
-                            return(<NewsCard card={card} key={ind}/>)
+                            return(<NewsCard 
+                                        card={card} 
+                                        key={ind} 
+                                        isLogged={props.isLogged}
+                                        onSaveButtonClick={(e) => props.onSaveButtonClick(card)}
+                                    />)
                         })
                     }
                 </ul>

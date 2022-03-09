@@ -104,6 +104,9 @@
 @import url(./components/NewsCard/__delete/_hidden/news-card__delete_hidden.css);
 @import url(./components/NewsCard/__keyword/_hidden/news-card__keyword_hidden.css);
 @import url(./components/NewsCard/__like/_hidden/news-card__like_hidden.css);
+@import url(./components/NewsCard/__like/_active/news-card__like_active.css);
+@import url(./components/NewsCard/__like/_unactive/news-card__like_unactive.css);
+@import url(./components/NewsCard/__like/_saved/news-card__like_saved.css);
 @import url(./components/NewsCard/__tooltip/_delete/news-card__tooltip_delete.css);
 @import url(./components/NewsCardList/_hidden/news-card-list_hidden.css);
 @import url(./components/NewsCardList/__show-more-button/_disable/news-card__show-more-button_disable.css);

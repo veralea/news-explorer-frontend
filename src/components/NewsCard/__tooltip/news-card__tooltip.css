@@ -12,7 +12,7 @@
     visibility: hidden;
 }
 
-.news-card__like:hover ~ .news-card__tooltip  {
+.news-card__like_unactive:hover ~ .news-card__tooltip  {
     visibility: visible;   
 }
 

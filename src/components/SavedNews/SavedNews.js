@@ -1,4 +1,4 @@
-import NewsCard from "../NewsCard/NewsCard";
+import SavedNewsCard from "../SavedNewsCard/SavedNewsCard";
 
 function SavedNews(props) {
     return (
@@ -7,7 +7,11 @@ function SavedNews(props) {
                 <ul className="news-card-list__cards-grid">
                 {
                     props.cards.map((card, ind) => {
-                        return(<NewsCard card={card} key={ind}/>)
+                        return(<SavedNewsCard 
+                                    card={card} 
+                                    key={ind} 
+                                    onDeleteButtonClick={(e) => props.onDeleteButtonClick(card)}
+                                />)
                     })
                 }
                 </ul>
