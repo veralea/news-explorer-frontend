@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer';
@@ -19,6 +19,7 @@ import statCards from '../../utils/constants';
 import newsApi from '../../utils/NewsApi';
 import mainApi from '../../utils/MainApi';
 import * as auth from '../../utils/auth';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const token = localStorage.getItem('token'); 
@@ -30,13 +31,13 @@ function App() {
   const [isPreloaderOpen, setIsPreloaderOpen] = useState(false);
   const [isErrorSearchOpen, setIsErrorSearchOpen] = useState(false);
   const [errorText, setErrorText] = useState('');
-  const [isCardListOpen, setIsCardListOpen] = useState(false)
+  const [isCardListOpen, setIsCardListOpen] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [cards, setCards] = useState(statCards);
   const [isErrorSubmitVisibled, setIsErrorSubmitVisibled] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [currentKeyword, setCurrentKeyword] = useState(''); 
-  const [savedCards, setSavedCards] = useState([])
+  const [savedCards, setSavedCards] = useState([]);
   
   function handleSaveButtonClick(card) {
     mainApi.saveCard(card, currentKeyword)
@@ -227,6 +228,7 @@ function App() {
     .catch((err) => console.log(err));
   },[]);
 
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -252,14 +254,17 @@ function App() {
               onSaveButtonClick={handleSaveButtonClick}
             /> 
             <About />         
-          </Route> 
-          <Route exact path="/saved-news">
-            <SavedNewsHeader   
+          </Route>
+          <ProtectedRoute
+              exact
+              path="/saved-news" 
+              isLogged={isLogged}            
+              cards={savedCards}
               quantitySavedCards={savedCards.length}
+              onDeleteButtonClick={handleDeleteButtonClick}
               strKeywords={strKeywords}
-            /> 
-            <SavedNews cards={savedCards} onDeleteButtonClick={handleDeleteButtonClick}/>
-          </Route>         
+              component={SavedNews}
+          /> 
         </Switch>
         <PopupWithForm 
                 name='signin' 
