@@ -15,8 +15,8 @@ function NewsCardList(props) {
         }
     }
 
-    return (
-        <section className={`news-card-list ${props.isOpen ? '' : 'news-card-list_hidden'}`}>
+    return (        
+        <section className='news-card-list'>        
             <div className='news-card-list__content'>
                 <h2 className="news-card-list__title">Search results</h2>
                 <ul className="news-card-list__cards-grid">
@@ -27,6 +27,10 @@ function NewsCardList(props) {
                                         key={ind} 
                                         isLogged={props.isLogged}
                                         onSaveButtonClick={(e) => props.onSaveButtonClick(card)}
+                                        onDeleteButtonClick={(e) => props.onDeleteButtonClick(card)}
+                                        savedCards={props.savedCards}
+                                        isSaved={props.links.some(i => i === card.url)}
+                                        // links={props.links}
                                     />)
                         })
                     }

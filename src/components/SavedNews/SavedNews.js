@@ -1,12 +1,13 @@
 import SavedNewsCard from "../SavedNewsCard/SavedNewsCard";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 
-function SavedNews(props) {
+function SavedNews(props) {  
     return (
       <>
         <SavedNewsHeader   
             quantitySavedCards={props.quantitySavedCards}
             strKeywords={props.strKeywords}
+            token={props.token}
         />
         <section className="news-card-list">
             <div className='news-card-list__content'>
@@ -24,7 +25,7 @@ function SavedNews(props) {
                 }
                 </ul>
             </div>
-        </section>
+        </section> 
       </>  
     );
 }

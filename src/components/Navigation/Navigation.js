@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import { withRouter} from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import LoginButton from '../LoginButton/LoginButton';
 
 function Navigation(props) {
@@ -11,14 +10,16 @@ function Navigation(props) {
           : "navigation__content navigation_state_not-logged"}
       >
         <li className="navigation__item">
-          <Link className="navigation__link" to="/">Home</Link>
+          <Link className={`navigation__link ${window.location.href.includes("/saved-news") 
+            ? "navigation__link_black" : ""}`} to="/">Home</Link>
         </li>
         <li 
           className={ props.isLogged 
             ? "navigation__item" 
             : "navigation__item_hidden" }
         >
-          <Link className="navigation__link" to="/saved-news">Saved articles</Link>  
+          <Link className={`navigation__link ${window.location.href.includes("/saved-news") 
+            ? "navigation__link_black" : ""}`} to="/saved-news">Saved articles</Link>  
         </li> 
         <li className="navigation__item">
           <LoginButton 

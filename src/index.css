@@ -94,10 +94,12 @@
 @import url(./components/Header/__menu-icon/_close/header__menu-icon_close.css);
 @import url(./components/Header/__menu-icon/_close/_black/header__menu-icon_close_black.css);
 @import url(./components/Header/_not-transparent/header_not-transparent.css);
+@import url(./components/Header/__logo/_black/header__logo_black.css);
 @import url(./components/LoginButton/__exit-icon/_black/login-button__exit-icon_black.css);
 @import url(./components/LoginButton/_black/login-button_black.css);
 @import url(./components/LoginButton/_not-logged/login-button_not-logged.css);
 @import url(./components/Navigation/__item/_hidden/navigation__item_hidden.css);
+@import url(./components/Navigation/__link/_black/navigation__link_black.css);
 @import url(./components/Navigation/_dropdown/navigation_dropdown.css);
 @import url(./components/Navigation/_state/navigation_state_logged.css);
 @import url(./components/Navigation/_state/navigation_state_not-logged.css);

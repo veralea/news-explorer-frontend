@@ -5,25 +5,22 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
-import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import About from '../About/About';
 import Preloader from '../Preloader/Preloader';
 import NewsCardList from '../NewsCardList/NewsCardList';
 import ErrorSearch from '../ErrorSearch/ErrorSearch';
-import PopupWithForm from '../PopupWithForm/PopupWithForm';
+import Login from '../Login/Login';
 import Register from '../Register/Register'
 import Success from '../Success/Success'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../UseForm/UseForm';
-import statCards from '../../utils/constants';
 import newsApi from '../../utils/NewsApi';
 import mainApi from '../../utils/MainApi';
 import * as auth from '../../utils/auth';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-function App() {
-  const token = localStorage.getItem('token'); 
-
+function App() { 
+  const [token, setToken] = useState(localStorage.getItem('token'));
   const [strKeywords, setStrKeywords] = useState(' ');
   const [isSigninPopupOpen, setIsSigninPopupOpen] = useState(false);
   const [isSignupPopupOpen, setIsSignupPopupOpen] = useState(false);
@@ -32,19 +29,33 @@ function App() {
   const [isErrorSearchOpen, setIsErrorSearchOpen] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [isCardListOpen, setIsCardListOpen] = useState(false);
-  const [isLogged, setIsLogged] = useState(false);
-  const [cards, setCards] = useState(statCards);
+  const [isLogged, setIsLogged] = useState(localStorage.getItem('token')  ? true : false);
+  const [cards, setCards] = useState([]);
   const [isErrorSubmitVisibled, setIsErrorSubmitVisibled] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [currentKeyword, setCurrentKeyword] = useState(''); 
-  const [savedCards, setSavedCards] = useState([]);
+  const [savedCards, setSavedCards] = useState(JSON.parse(localStorage.getItem("savedCards"))
+  ? JSON.parse(localStorage.getItem("savedCards")) : []);
+  const [links, setLinks] = useState([]);
   
-  function handleSaveButtonClick(card) {
-    mainApi.saveCard(card, currentKeyword)
-    .then(() => {
-      mainApi.getAllArticles()
+  useEffect(() => {
+    if(token) {
+      mainApi.getAllArticles(token)
       .then((result) => {
         setSavedCards(result);
+        localStorage.setItem("savedCards", JSON.stringify(savedCards));
+      })
+      .catch((err) => console.log(err));    
+    }
+  },[])
+  
+  function handleSaveButtonClick(card) {
+    mainApi.saveCard(card, currentKeyword, token)
+    .then(() => {
+      mainApi.getAllArticles(token)
+      .then((result) => {
+        setSavedCards(result);
+        localStorage.setItem("savedCards", JSON.stringify(savedCards));
       })
       .catch((err) => console.log(err));
     })
@@ -52,19 +63,25 @@ function App() {
   }
 
   function handleDeleteButtonClick(card) {
-    mainApi.deleteCard(card._id)
+    let id = '';
+    if(card._id){
+      id = card._id;
+    } else {
+      id = savedCards.find(i => i.link === card.url)._id;
+    }
+    
+    mainApi.deleteCard(id, token)
     .then(() => {
-      mainApi.getAllArticles()
+      mainApi.getAllArticles(token)
       .then((result) => {
         setSavedCards(result);
+        localStorage.setItem("savedCards", JSON.stringify(result));
       })
       .catch((err) => console.log(err));
     })
     .catch((err) => console.log(err));
   }
 
-
-  
   function handleSearchSubmit(tag) {
     setCurrentKeyword(tag);
     setIsCardListOpen(false);
@@ -100,7 +117,7 @@ function App() {
   }
 
   useEffect(() => {
-    const keywords = savedCards.reduce((previousValue, item, index, array) => {
+    const keywords = savedCards.reduce((previousValue, item) => {
       const result = previousValue.find(el => {
         if (el) {
           return el.keyword === item.keyword;
@@ -116,15 +133,26 @@ function App() {
       return previousValue.sort((a, b) => a.count < b.count ? 1 : -1);
     },[]);
     if (keywords.length > 3) {
-      setStrKeywords(`${keywords[0].keyword}, ${keywords[1].keyword}, and ${keywords.length - 2} other`)
+      setStrKeywords(` ${keywords[0].keyword}, ${keywords[1].keyword}, and ${keywords.length - 2} other`)
     } else {
       const str = keywords.reduce((previousValue, item) => {
         previousValue.push(item.keyword);
         return previousValue;
       },[]);
-      setStrKeywords(str.join(", "));
+      setStrKeywords(" "+str.join(", "));
     }    
   })
+
+  useEffect(() => {
+    if (savedCards.length > 0) {
+      const currLinks = savedCards.reduce((previousValue, item) => {
+        previousValue.push(item.link);
+        return previousValue;
+      },[]);
+      setLinks(currLinks);
+    }
+    
+  },[savedCards]);
 
   function handleLoginButtonClick() {
     setIsSigninPopupOpen(true);
@@ -133,6 +161,9 @@ function App() {
   function handleLogoutButtonClick() {
     setIsLogged(false);
     localStorage.removeItem('token');
+    setToken(null);
+    setSavedCards([]);
+    localStorage.removeItem("savedCards");
   }
 
   function handleLoginFormSubmit(e,email, password) {
@@ -140,18 +171,26 @@ function App() {
     setIsErrorSubmitVisibled(false);  
     auth.authorize(email, password)
     .then((res) => {
-      console.log(res.token); 
+      console.log(res.token);
       localStorage.setItem('token', res.token);
+      setToken(res.token);
       setIsLogged(true);
       setIsSigninPopupOpen(false);
       setIsErrorSubmitVisibled(false);
       return res;
     })
-    .then((res) => {
+    .then((res) => {     
       auth.getContent(res.token)
       .then((res) => {
         setCurrentUser(res);
         setIsLogged(true);
+        mainApi.showToken();
+        mainApi.getAllArticles(token)
+        .then((result) => {
+          setSavedCards(result);
+          localStorage.setItem("savedCards", JSON.stringify(result));
+        })
+        .catch((err) => console.log(err));
       })
     })
     .catch((err) => {
@@ -206,11 +245,19 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if (token) {   
+    if (token) {  
       auth.getContent(token)
       .then((res) => {
         setCurrentUser(res);
         setIsLogged(true);
+      })
+      .then(() => {
+        mainApi.getAllArticles(token)
+        .then((result) => {
+          setSavedCards(result);
+          localStorage.setItem("savedCards",  JSON.stringify(result));
+        })
+        .catch((err) => console.log(err));
       })
       .catch((err) => {
         console.log(err);
@@ -219,15 +266,6 @@ function App() {
       setIsLogged(false);
     }
   },[]);
-
-  useEffect(() => {
-    mainApi.getAllArticles()
-    .then((result) => {
-      setSavedCards(result);
-    })
-    .catch((err) => console.log(err));
-  },[]);
-
 
   return (
     <div className="page">
@@ -247,12 +285,16 @@ function App() {
               errorText={errorText}
               isOpen={isErrorSearchOpen}
             />
+            {isCardListOpen ? 
             <NewsCardList 
-              cards={cards}
-              isOpen={isCardListOpen}
+              cards={cards} 
               isLogged={isLogged}
               onSaveButtonClick={handleSaveButtonClick}
-            /> 
+              onDeleteButtonClick={handleDeleteButtonClick}
+              savedCards={savedCards} 
+              links={links}           
+            /> : <div></div>
+            }
             <About />         
           </Route>
           <ProtectedRoute
@@ -264,31 +306,28 @@ function App() {
               onDeleteButtonClick={handleDeleteButtonClick}
               strKeywords={strKeywords}
               component={SavedNews}
+              token={token}
           /> 
         </Switch>
-        <PopupWithForm 
-                name='signin' 
-                title='Sign in' 
-                isOpen={isSigninPopupOpen}
-                onClose={closeAllPopups}
-                buttonText='Sign in'
-                onSignupLinkClick={handleSignupLinkClick}
-                login={handleLoginFormSubmit}
-                useForm={useFormWithValidation}
-                isErrorSubmitVisibled = {isErrorSubmitVisibled}
-                errorText = {errorText}
+        <Login 
+          name='signin'  
+          isOpen={isSigninPopupOpen}
+          onClose={closeAllPopups}
+          onLinkClick={handleSignupLinkClick}
+          action={handleLoginFormSubmit}
+          useForm={useFormWithValidation}
+          isErrorSubmitVisibled = {isErrorSubmitVisibled}
+          errorText = {errorText}
         />
         <Register 
-                name='signup' 
-                title='Sign up' 
-                isOpen={isSignupPopupOpen}
-                onClose={closeAllPopups}
-                buttonText='Sign up'
-                onSigninLinkClick={handleSigninLinkClick}
-                register={handleLogupFormSubmit}
-                useForm={useFormWithValidation}
-                isErrorSubmitVisibled = {isErrorSubmitVisibled}
-                errorText = {errorText}
+          name='signup'  
+          isOpen={isSignupPopupOpen}
+          onClose={closeAllPopups}
+          onLinkClick={handleSigninLinkClick}
+          action={handleLogupFormSubmit}
+          useForm={useFormWithValidation}
+          isErrorSubmitVisibled = {isErrorSubmitVisibled}
+          errorText = {errorText}
         />
         <Success
           name='success' 

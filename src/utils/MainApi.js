@@ -6,42 +6,34 @@ class MainApi {
       this._headers = options.headers;
     }
 
-
-  
     _getResponseData(res) {
       if (!res.ok) {
           return Promise.reject(`Error: ${res.status}`);
       }
       return res.json();
   }
+
+    showToken(){
+      const tok = localStorage.getItem("token");
+      console.log("token from MainApi",tok);
+    }
   
-//     getUserInfo() {
-//       return fetch(`${this._baseUrl}/users/me`,{
-//         headers: this._headers
-//       }).then(res => this._getResponseData(res));
-//     }
-  
-    getAllArticles() {
+    getAllArticles(token) {
       return fetch(`${this._baseUrl}/articles`,{
-        headers: this._headers
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
       }).then(res => this._getResponseData(res));
     }
   
-    // setUserInfo({ name, about }) {
-    //   return fetch(`${this._baseUrl}/users/me`,{
-    //     method: "PATCH",
-    //     headers: this._headers,
-    //     body: JSON.stringify({
-    //       name: name,
-    //       about: about
-    //     })
-    //   }).then(res => this._getResponseData(res));
-    // }
-  
-    saveCard(cardData,keyword) {
+    saveCard(cardData,keyword,token) {
       return fetch(`${this._baseUrl}/articles`,{
         method: "POST",
-        headers: this._headers,
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
         body: JSON.stringify({
           keyword: keyword,
           title: cardData.title,
@@ -54,10 +46,13 @@ class MainApi {
       }).then(res => this._getResponseData(res));
     }
   
-    deleteCard(id) {
+    deleteCard(id, token) {
      return fetch(`${this._baseUrl}/articles/${id}`,{
         method: "DELETE",
-        headers: this._headers,
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
       }).then(res => this._getResponseData(res));
     }
   
@@ -70,13 +65,12 @@ class MainApi {
   
   }
 
-  
   const mainApi = new MainApi({
     baseUrl: "https://api.veralea-news-explorer.students.nomoreparties.sbs",
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem("token")}`,
-      "Content-Type": "application/json"
-    }
+    // headers: {
+    //   'Authorization': `Bearer ${token}`,
+    //   "Content-Type": "application/json"
+    // }
   }); 
   
   export default mainApi;
