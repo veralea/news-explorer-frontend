@@ -89,6 +89,7 @@
 @import url(./components/PopupWithForm/__button/popup__button_disabled.css);
 @import url(./components/PopupWithForm/__link/popup__link_blue.css);
 @import url(./components/PopupWithForm/__submit-error/_hidden/popup__submit-error_hidden.css);
+@import url(./components/PopupWithForm/__error/popup__error.css);
 @import url(./components/Header/__content/_black/header__content_black.css);
 @import url(./components/Header/__menu-icon/_black/header__menu-icon_black.css);
 @import url(./components/Header/__menu-icon/_close/header__menu-icon_close.css);

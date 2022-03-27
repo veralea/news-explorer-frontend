@@ -25,10 +25,9 @@ function NewsCard(props) {
 
     useEffect(() => {
       if(props.isLogged) {
-        setIsSaved(props.isSaved);
         setLikeButtonClassName(`${isSaved ? 'news-card__like_saved' : 'news-card__like_active'}`);
       }  
-    });
+    },[isSaved]);
     
     return (
         <li className="news-card">

@@ -27,7 +27,7 @@ function Login(props) {
       onLinkClick={props.onLinkClick}
       useFormObj={useFormObj}
       action={props.action}
-      // val={[useFormObj.values.email, useFormObj.values.password]}
+      val={[useFormObj.values.email, useFormObj.values.password]}
       textLink="Sign up"
     >
       <label className="popup__label" htmlFor="emailLog">Email</label>

@@ -13,7 +13,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register'
 import Success from '../Success/Success'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { useFormWithValidation } from '../UseForm/UseForm';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import newsApi from '../../utils/NewsApi';
 import mainApi from '../../utils/MainApi';
 import * as auth from '../../utils/auth';
@@ -38,26 +38,24 @@ function App() {
   ? JSON.parse(localStorage.getItem("savedCards")) : []);
   const [links, setLinks] = useState([]);
   
-  useEffect(() => {
-    if(token) {
-      mainApi.getAllArticles(token)
-      .then((result) => {
+  function getSavedAtricles() {
+    mainApi.getAllArticles()
+    .then((result) => {
+      if(result.length > 0) {
         setSavedCards(result);
         localStorage.setItem("savedCards", JSON.stringify(savedCards));
-      })
-      .catch((err) => console.log(err));    
-    }
-  },[])
-  
+        return result;
+      }
+    })
+    .catch((err) => 
+      console.log(err)
+    );
+  }
+ 
   function handleSaveButtonClick(card) {
-    mainApi.saveCard(card, currentKeyword, token)
+    mainApi.saveCard(card, currentKeyword)
     .then(() => {
-      mainApi.getAllArticles(token)
-      .then((result) => {
-        setSavedCards(result);
-        localStorage.setItem("savedCards", JSON.stringify(savedCards));
-      })
-      .catch((err) => console.log(err));
+      getSavedAtricles();
     })
     .catch((err) => console.log(err));
   }
@@ -68,16 +66,10 @@ function App() {
       id = card._id;
     } else {
       id = savedCards.find(i => i.link === card.url)._id;
-    }
-    
-    mainApi.deleteCard(id, token)
+    } 
+    mainApi.deleteCard(id)
     .then(() => {
-      mainApi.getAllArticles(token)
-      .then((result) => {
-        setSavedCards(result);
-        localStorage.setItem("savedCards", JSON.stringify(result));
-      })
-      .catch((err) => console.log(err));
+      getSavedAtricles();
     })
     .catch((err) => console.log(err));
   }
@@ -141,7 +133,7 @@ function App() {
       },[]);
       setStrKeywords(" "+str.join(", "));
     }    
-  })
+  },[savedCards])
 
   useEffect(() => {
     if (savedCards.length > 0) {
@@ -164,6 +156,7 @@ function App() {
     setToken(null);
     setSavedCards([]);
     localStorage.removeItem("savedCards");
+    setCurrentUser({});
   }
 
   function handleLoginFormSubmit(e,email, password) {
@@ -171,26 +164,19 @@ function App() {
     setIsErrorSubmitVisibled(false);  
     auth.authorize(email, password)
     .then((res) => {
-      console.log(res.token);
-      localStorage.setItem('token', res.token);
-      setToken(res.token);
-      setIsLogged(true);
-      setIsSigninPopupOpen(false);
-      setIsErrorSubmitVisibled(false);
-      return res;
+        localStorage.setItem('token', res.token);
+        setIsLogged(true);
+        setToken(res.token);
+        setIsSigninPopupOpen(false);
+        setIsErrorSubmitVisibled(false);
+        return res;
     })
     .then((res) => {     
-      auth.getContent(res.token)
+      auth.checkToken()
       .then((res) => {
-        setCurrentUser(res);
-        setIsLogged(true);
-        mainApi.showToken();
-        mainApi.getAllArticles(token)
-        .then((result) => {
-          setSavedCards(result);
-          localStorage.setItem("savedCards", JSON.stringify(result));
-        })
-        .catch((err) => console.log(err));
+          setCurrentUser(res);
+          setIsLogged(true);
+          getSavedAtricles();
       })
     })
     .catch((err) => {
@@ -245,19 +231,11 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if (token) {  
-      auth.getContent(token)
+    if (token) { 
+      auth.checkToken()
       .then((res) => {
         setCurrentUser(res);
         setIsLogged(true);
-      })
-      .then(() => {
-        mainApi.getAllArticles(token)
-        .then((result) => {
-          setSavedCards(result);
-          localStorage.setItem("savedCards",  JSON.stringify(result));
-        })
-        .catch((err) => console.log(err));
       })
       .catch((err) => {
         console.log(err);
@@ -266,6 +244,12 @@ function App() {
       setIsLogged(false);
     }
   },[]);
+
+  useEffect(() => {
+    if(token) {    
+      getSavedAtricles();    
+    }
+  },[token]);
 
   return (
     <div className="page">

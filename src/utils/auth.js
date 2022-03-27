@@ -2,8 +2,19 @@ export const BASE_URL = 'https://api.veralea-news-explorer.students.nomorepartie
 
 function getResponseData(res) {
   if (!res.ok) {
-    return Promise.reject(`Error: ${res.status}`); 
-  } else {
+    // return Promise.reject(res);
+
+    return Promise.resolve(res.json())
+    .then((res) => {
+      if (res.validation) {
+        return Promise.reject(res.validation.body.message);
+      }
+      else if (res.message) {
+        return Promise.reject(res.message);
+      }
+    })
+  } 
+  else {
     return res.json();
   }
 
@@ -30,16 +41,18 @@ export const authorize = (email, password) => {
     },
     body: JSON.stringify({email, password}) 
   })
-   .then((res) => getResponseData(res));
+   .then((res) => 
+      getResponseData(res)
+ );
 };
 
-export const getContent = (token) => {
+export const checkToken = () => {
   return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${localStorage.getItem("token")}`,
       }
     })
     .then((res) => getResponseData(res));

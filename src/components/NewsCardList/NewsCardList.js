@@ -30,7 +30,6 @@ function NewsCardList(props) {
                                         onDeleteButtonClick={(e) => props.onDeleteButtonClick(card)}
                                         savedCards={props.savedCards}
                                         isSaved={props.links.some(i => i === card.url)}
-                                        // links={props.links}
                                     />)
                         })
                     }

@@ -1,20 +1,5 @@
 import { useState, useCallback } from "react";
 
-// hook for form control
-// export function useForm() {
-//   const [values, setValues] = useState({});
-
-//   const handleChange = (event) => {
-//     const target = event.target;
-//     const value = target.value;
-//     const name = target.name;
-//     setValues({...values, [name]: value});
-//   };
-
-//   return {values, handleChange, setValues};
-// }
-
-// hook for form control and form validation
 export function useFormWithValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
@@ -22,11 +7,13 @@ export function useFormWithValidation() {
 
   const handleChange = (event) => {
     const target = event.target;
+    
     const name = target.name;
     const value = target.value;
     setValues({...values, [name]: value});
     setErrors({...errors, [name]: target.validationMessage });
     setIsValid(target.closest("form").checkValidity());
+    target.nextElementSibling.innerHTML = target.validationMessage; 
   };
 
   const resetForm = useCallback(
