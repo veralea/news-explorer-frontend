@@ -1,12 +1,13 @@
 import { useState } from "react";
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 function Register(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
 
-  const useFormObj = props.useForm();
+  const useFormObj = useFormWithValidation();
   
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -22,14 +23,6 @@ function Register(props) {
     setUsername(e.target.value);
     useFormObj.handleChange(e);
   }
-
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   if (useFormObj.isValid) {
-  //     props.register(e, useFormObj.values.email, useFormObj.values.password, useFormObj.values.username );
-  //     useFormObj.resetForm();
-  //   }
-  // }
 
   return (
     <PopupWithForm 

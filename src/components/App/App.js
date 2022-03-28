@@ -13,7 +13,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register'
 import Success from '../Success/Success'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+// import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import newsApi from '../../utils/NewsApi';
 import mainApi from '../../utils/MainApi';
 import * as auth from '../../utils/auth';
@@ -177,6 +177,7 @@ function App() {
           setCurrentUser(res);
           setIsLogged(true);
           getSavedAtricles();
+          setErrorText("");
       })
     })
     .catch((err) => {
@@ -193,6 +194,7 @@ function App() {
       setIsSignupPopupOpen(false);
       setIsSuccessPopupOpen(true);
       setIsErrorSubmitVisibled(false);
+      setErrorText("");
     })
     .catch((err) => {
       setIsErrorSubmitVisibled(true);
@@ -299,7 +301,6 @@ function App() {
           onClose={closeAllPopups}
           onLinkClick={handleSignupLinkClick}
           action={handleLoginFormSubmit}
-          useForm={useFormWithValidation}
           isErrorSubmitVisibled = {isErrorSubmitVisibled}
           errorText = {errorText}
         />
@@ -309,7 +310,6 @@ function App() {
           onClose={closeAllPopups}
           onLinkClick={handleSigninLinkClick}
           action={handleLogupFormSubmit}
-          useForm={useFormWithValidation}
           isErrorSubmitVisibled = {isErrorSubmitVisibled}
           errorText = {errorText}
         />

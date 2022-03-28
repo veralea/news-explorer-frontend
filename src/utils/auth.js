@@ -2,9 +2,7 @@ export const BASE_URL = 'https://api.veralea-news-explorer.students.nomorepartie
 
 function getResponseData(res) {
   if (!res.ok) {
-    // return Promise.reject(res);
-
-    return Promise.resolve(res.json())
+    return res.json()
     .then((res) => {
       if (res.validation) {
         return Promise.reject(res.validation.body.message);
