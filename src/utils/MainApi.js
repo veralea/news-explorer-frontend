@@ -2,12 +2,7 @@ import moment from "moment";
 
 class MainApi {
     constructor (options){
-      this._baseUrl = options.baseUrl;
-      this._headers = {
-        'Authorization': `Bearer ${options.token}`,
-        'Content-Type': 'application/json'
-      };        
-      this._token = options.token;   
+      this._baseUrl = options.baseUrl;  
     }
 
     _getResponseData(res) {
@@ -17,42 +12,57 @@ class MainApi {
       return res.json();
   }
   
-    getAllArticles() {
-      if(this._token){
+    getAllArticles(token) {
+      if(token){
         return fetch(`${this._baseUrl}/articles`,{
-        headers: this._headers
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
         }).then(res => this._getResponseData(res));
       }
     }
   
-    saveCard(cardData,keyword) {
+    saveCard(cardData,keyword,token) {
+
       return fetch(`${this._baseUrl}/articles`,{
         method: "POST",
-        headers: this._headers,
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           keyword: keyword,
           title: cardData.title,
           text: cardData.content,
+          // text: cardData.text,
           date: moment(cardData.publishedAt).format('MMMM DD, YYYY'),
+          // date: cardData.date,
           link: cardData.url,
+          // link: cardData.link,
           image: cardData.urlToImage,
+          // image: cardData.image,
           source: cardData.source.name,
+          // source: cardData.source,
         })
       }).then(res => this._getResponseData(res));
     }
   
-    deleteCard(id) {
+    deleteCard(id, token) {
      return fetch(`${this._baseUrl}/articles/${id}`,{
         method: "DELETE",
-        headers: this._headers,
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
       }).then(res => this._getResponseData(res));
     }
   
   }
 
-  const mainApi = new MainApi({
+  const mainApi  = new MainApi({
     baseUrl: "https://api.veralea-news-explorer.students.nomoreparties.sbs",
-    token: localStorage.getItem("token"),
-  }); 
+  });
+   
   
   export default mainApi;

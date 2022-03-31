@@ -13,7 +13,6 @@ import Login from '../Login/Login';
 import Register from '../Register/Register'
 import Success from '../Success/Success'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-// import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import newsApi from '../../utils/NewsApi';
 import mainApi from '../../utils/MainApi';
 import * as auth from '../../utils/auth';
@@ -34,42 +33,125 @@ function App() {
   const [isErrorSubmitVisibled, setIsErrorSubmitVisibled] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [currentKeyword, setCurrentKeyword] = useState(''); 
-  const [savedCards, setSavedCards] = useState(JSON.parse(localStorage.getItem("savedCards"))
-  ? JSON.parse(localStorage.getItem("savedCards")) : []);
+  const [savedCards, setSavedCards] = useState([]);
   const [links, setLinks] = useState([]);
   
-  function getSavedAtricles() {
-    mainApi.getAllArticles()
-    .then((result) => {
-      if(result.length > 0) {
-        setSavedCards(result);
-        localStorage.setItem("savedCards", JSON.stringify(savedCards));
-        return result;
-      }
-    })
-    .catch((err) => 
-      console.log(err)
-    );
+  function closeAllPopups() {
+    setIsSigninPopupOpen(false);
+    setIsSignupPopupOpen(false);
+    setIsSuccessPopupOpen(false);
+    setErrorText("");
   }
- 
-  function handleSaveButtonClick(card) {
-    mainApi.saveCard(card, currentKeyword)
-    .then(() => {
-      getSavedAtricles();
+
+  function handleSignupLinkClick(e) {
+    e.preventDefault();
+    setIsSigninPopupOpen(false);
+    setIsSignupPopupOpen(true);
+    setIsErrorSubmitVisibled(false);
+  }
+  
+  function handleSigninLinkClick(e) {
+    e.preventDefault();
+    setIsSigninPopupOpen(true);
+    setIsSignupPopupOpen(false);
+  }
+
+  function handleSigninLinkSuccessClick(e) {
+    e.preventDefault();
+    setIsSigninPopupOpen(true);
+    setIsSuccessPopupOpen(false);
+  }
+  
+  function getSavedAtricles(tok) {
+    if (tok) {
+      mainApi.getAllArticles(tok)
+      .then((res) => {
+        setSavedCards(res);
+      })
+      .catch((err) => console.log(err))
+    }
+  }
+
+  function handleLogupFormSubmit(e, email, password, username) {
+    e.preventDefault();
+    setIsErrorSubmitVisibled(false);
+    auth.register(email, password, username).then((res) => {
+      setIsSignupPopupOpen(false);
+      setIsSuccessPopupOpen(true);
+      setIsErrorSubmitVisibled(false);
+      setErrorText("");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      setIsErrorSubmitVisibled(true);
+      setErrorText(err);
+    });
+  } 
+
+  function handleLoginFormSubmit(e,email, password) {
+    e.preventDefault();
+    setIsErrorSubmitVisibled(false);
+    if(!token) {
+      auth.authorize(email, password)
+      .then((res) => {
+        setToken(res.token);
+        localStorage.setItem("token", res.token);
+        setIsSigninPopupOpen(false);
+        setIsErrorSubmitVisibled(false);        
+        return res.token;
+      })
+      .then((tok) => {
+        auth.checkToken(tok)
+        .then((res) => {
+          setCurrentUser(res);
+          setIsLogged(true);
+          getSavedAtricles(tok);
+          setErrorText("");         
+        })
+        .catch((err) => console.log(err))
+      })
+      .catch((err) => {
+      setIsErrorSubmitVisibled(true);
+      setErrorText(err);
+      setIsLogged(false);
+    });
+    }
+  }
+
+  function handleLoginButtonClick() {
+    setIsSigninPopupOpen(true);
+  }
+
+  function handleLogoutButtonClick() {
+    localStorage.removeItem("token");
+    setToken(null);
+    setIsLogged(false);
+    setCurrentUser({});
+    setSavedCards([]);
+    setStrKeywords(" ");
+    setLinks([]);
   }
 
   function handleDeleteButtonClick(card) {
     let id = '';
-    if(card._id){
-      id = card._id;
-    } else {
-      id = savedCards.find(i => i.link === card.url)._id;
-    } 
-    mainApi.deleteCard(id)
+    if (token) {    
+      if(card._id){
+        id = card._id;
+      } 
+      else if (savedCards.find(i => i.link === card.url)) {
+        id = savedCards.find(i => i.link === card.url)._id;
+      } 
+      mainApi.deleteCard(id, token)
+      .then(() => {
+        getSavedAtricles(token);
+      })
+      .catch((err) => console.log(err)); 
+    }
+  }
+
+  function handleSaveButtonClick(card) {
+    mainApi.saveCard(card, currentKeyword, token)
     .then(() => {
-      getSavedAtricles();
+      getSavedAtricles(token);
     })
     .catch((err) => console.log(err));
   }
@@ -98,15 +180,30 @@ function App() {
       setIsErrorSearchOpen(true);
       setErrorText('Sorry, something went wrong during the request. There may be a connection issue'
       +' or the server may be down. Please try again later.');
-      console.log(err);
     });
   }
 
-  function closeAllPopups() {
-    setIsSigninPopupOpen(false);
-    setIsSignupPopupOpen(false);
-    setIsSuccessPopupOpen(false);
-  }
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+    document.addEventListener('keydown', closeByEscape);  
+    return () => document.removeEventListener('keydown', closeByEscape);
+  }, [])
+
+  useEffect(() => {
+    if(token){
+      auth.checkToken(token)
+        .then((res) => {
+          setCurrentUser(res);
+          setIsLogged(true);
+          getSavedAtricles(token);
+        })
+        .catch((err) => console.log(err)); 
+    }    
+  },[token]);
 
   useEffect(() => {
     const keywords = savedCards.reduce((previousValue, item) => {
@@ -142,119 +239,82 @@ function App() {
         return previousValue;
       },[]);
       setLinks(currLinks);
-    }
-    
-  },[savedCards]);
-
-  function handleLoginButtonClick() {
-    setIsSigninPopupOpen(true);
-  }
-
-  function handleLogoutButtonClick() {
-    setIsLogged(false);
-    localStorage.removeItem('token');
-    setToken(null);
-    setSavedCards([]);
-    localStorage.removeItem("savedCards");
-    setCurrentUser({});
-  }
-
-  function handleLoginFormSubmit(e,email, password) {
-    e.preventDefault();
-    setIsErrorSubmitVisibled(false);  
-    auth.authorize(email, password)
-    .then((res) => {
-        localStorage.setItem('token', res.token);
-        setIsLogged(true);
-        setToken(res.token);
-        setIsSigninPopupOpen(false);
-        setIsErrorSubmitVisibled(false);
-        return res;
-    })
-    .then((res) => {     
-      auth.checkToken()
-      .then((res) => {
-          setCurrentUser(res);
-          setIsLogged(true);
-          getSavedAtricles();
-          setErrorText("");
-      })
-    })
-    .catch((err) => {
-      setIsErrorSubmitVisibled(true);
-      setErrorText(err);
-      setIsLogged(false);
-    });
-  }
-
-  function handleLogupFormSubmit(e, email, password, username) {
-    e.preventDefault();
-    setIsErrorSubmitVisibled(false);
-    auth.register(email, password, username).then((res) => {
-      setIsSignupPopupOpen(false);
-      setIsSuccessPopupOpen(true);
-      setIsErrorSubmitVisibled(false);
-      setErrorText("");
-    })
-    .catch((err) => {
-      setIsErrorSubmitVisibled(true);
-      setErrorText(err);
-    });
-  }
-
-  function handleSignupLinkClick(e) {
-    e.preventDefault();
-    setIsSigninPopupOpen(false);
-    setIsSignupPopupOpen(true);
-    setIsErrorSubmitVisibled(false);
-  }
-  
-  function handleSigninLinkClick(e) {
-    e.preventDefault();
-    setIsSigninPopupOpen(true);
-    setIsSignupPopupOpen(false);
-  }
-
-  function handleSigninLinkSuccessClick(e) {
-    e.preventDefault();
-    setIsSigninPopupOpen(true);
-    setIsSuccessPopupOpen(false);
-  }
-
-
-  useEffect(() => {
-    const closeByEscape = (e) => {
-      if (e.key === 'Escape') {
-        closeAllPopups();
-      }
-    }
-    document.addEventListener('keydown', closeByEscape);  
-    return () => document.removeEventListener('keydown', closeByEscape);
-  }, [])
-
-  useEffect(() => {
-    if (token) { 
-      auth.checkToken()
-      .then((res) => {
-        setCurrentUser(res);
-        setIsLogged(true);
-      })
-      .catch((err) => {
-        console.log(err);
-       });
-    } else {
-      setIsLogged(false);
-    }
-  },[]);
-
-  useEffect(() => {
-    if(token) {    
-      getSavedAtricles();    
-    }
-  },[token]);
+    }  
+  },[savedCards]); 
 
   return (
     <div className="page">
+      {/* <CurrentUserContext.Provider value={currentUser}>
+        <Header 
+          onLoginButtonClick={handleLoginButtonClick}
+          onLogoutButtonClick={handleLogoutButtonClick}
+          isLogged={isLogged}
+        />
+        <Main search={handleSearchSubmit}/>
+        <Preloader 
+          isOpen={isPreloaderOpen}
+        />
+        <ErrorSearch
+          errorText={errorText}
+          isOpen={isErrorSearchOpen}
+        />
+        {isCardListOpen ? 
+        <NewsCardList 
+          cards={cards} 
+          isLogged={isLogged}
+          onSaveButtonClick={handleSaveButtonClick}
+          onDeleteButtonClick={handleDeleteButtonClick}
+          savedCards={savedCards} 
+          links={links}           
+        /> : <div></div>
+        }
+        <SavedNews
+            name={currentUser.name}
+            isLogged={isLogged}            
+            cards={savedCards}
+            quantitySavedCards={savedCards.length}
+            onDeleteButtonClick={handleDeleteButtonClick}
+            strKeywords={strKeywords}
+        />            
+        <div>Token {token}</div>
+        <div>localStorage token {localStorage.getItem("token")}</div>
+        <div>isLogged {isLogged.toString()}</div>
+        <div>Name {currentUser.name}</div>
+        <div>SavedNews {savedCards.length}</div>
+        <div>strKeywords {strKeywords}</div>
+        <div>currentKeyword {currentKeyword}</div>
+        <div>Links {links.join(", ")}</div>
+        <div>Saved cards {savedCards.length > 0 ? savedCards[0]._id : " "} </div>
+        <button onClick={handleLogoutButtonClick}>Log out</button>
+        <button onClick={handleLoginFormSubmit}>Log in</button>
+        <button onClick={handleDeleteButtonClick}>Delete card</button>
+        <button onClick={handleSaveButtonClick}>Save card</button>
+        <Login 
+          name='signin'  
+          isOpen={isSigninPopupOpen}
+          onClose={closeAllPopups}
+          onLinkClick={handleSignupLinkClick}
+          action={handleLoginFormSubmit}
+          isErrorSubmitVisibled = {isErrorSubmitVisibled}
+          errorText = {errorText}
+        />
+        <Register 
+          name='signup'  
+          isOpen={isSignupPopupOpen}
+          onClose={closeAllPopups}
+          onLinkClick={handleSigninLinkClick}
+          action={handleLogupFormSubmit}
+          isErrorSubmitVisibled = {isErrorSubmitVisibled}
+          errorText = {errorText}
+        />
+        <Success
+          name='success' 
+          title='Registration successfully completed!'
+          isOpen={isSuccessPopupOpen}
+          onClose={closeAllPopups}
+          onSigninLinkSuccessClick={handleSigninLinkSuccessClick}
+        />        
+      </CurrentUserContext.Provider> */}
       <CurrentUserContext.Provider value={currentUser}>
         <Header 
           onLoginButtonClick={handleLoginButtonClick}
