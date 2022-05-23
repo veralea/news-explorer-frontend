@@ -1,14 +1,14 @@
 .navigation {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    grid-template-columns: repeat(auto-fit,auto);
-    color: inherit;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit,auto);
+  color: inherit;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 480px) {
-    .navigation {
-        display: none;
-    }
+  .navigation {
+    display: none;
+  }
 }

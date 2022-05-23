@@ -1,19 +1,19 @@
 .search-form {
-    position: relative;
-    width: 608px;
-    margin: 88px auto 0;
+  position: relative;
+  width: 608px;
+  margin: 88px auto 0;
 }
 
 @media screen and (max-width: 768px) {
-    .search-form {
-        width: 448px;
-        margin: 48px auto 0; 
-    }
+  .search-form {
+    width: 448px;
+    margin: 48px auto 0;
+  }
 }
 
 @media screen and (max-width: 480px) {
-    .search-form {
-        width: 288px;
-        margin: 122px auto 0;  
-    }    
+  .search-form {
+    width: 288px;
+    margin: 122px auto 0;
+  }
 }

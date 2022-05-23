@@ -1,30 +1,26 @@
 .search-form__title {
-    margin-block-start: 0;
-    margin-block-end: 0;
-    margin-inline-start: 0;
-    margin-inline-end: 0;
-    color: white;
-    width: 608px;
-    margin: 80px auto 32px;
-    display: block;
-    font-family: Roboto Slab, Arial, sans-serif;
-    font-size: 60px;
-    font-weight: 400;
-    line-height: 1.07;
+  color: white;
+  width: 608px;
+  margin: 80px auto 32px;
+  display: block;
+  font-family: Roboto Slab, Arial, sans-serif;
+  font-size: 60px;
+  font-weight: 400;
+  line-height: 1.07;
 }
 
 @media screen and (max-width: 768px) {
-    .search-form__title {
-        width: 448px;
-        margin: 38px auto 16px;
-        font-size: 36px;
-        line-height: 1.11;
-    }
+  .search-form__title {
+    width: 448px;
+    margin: 38px auto 16px;
+    font-size: 36px;
+    line-height: 1.11;
+  }
 }
 
 @media screen and (max-width: 480px) {
-    .search-form__title {
-        width: 288px;
-        margin: 30px auto 16px;
-    }    
+  .search-form__title {
+    width: 288px;
+    margin: 30px auto 16px;
+  }
 }

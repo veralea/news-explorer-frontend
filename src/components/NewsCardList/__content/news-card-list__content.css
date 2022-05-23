@@ -1,11 +1,11 @@
 .news-card-list__content {
-    width: 1440px;
-    padding: 62px 104px 142px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    box-sizing: border-box;
+  width: 1440px;
+  padding: 62px 104px 142px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 768px ) {

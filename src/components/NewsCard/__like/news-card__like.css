@@ -1,21 +1,21 @@
 .news-card__like {
-    right: 24px;
-    width: 40px;    
-    background-size: 48% 48%;
+  right: 24px;
+  width: 40px;
+  background-size: 48% 48%;
 }
 
 .news-card__like:hover {
-    background-image: url(../../../images/bookmark-active.svg);
+  background-image: url(../../../images/bookmark-active.svg);
 }
 
 @media screen and (max-width: 768px) {
-    .news-card__like {
-        right: 8px;
-    }
+  .news-card__like {
+    right: 8px;
+  }
 }
 
 @media screen and (max-width: 480px) {
-    .news-card__like {
-        right: 16px;
-    }
+  .news-card__like {
+    right: 16px;
+  }
 }

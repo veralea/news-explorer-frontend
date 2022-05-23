@@ -1,15 +1,15 @@
 .login-button_not-logged {
-    width: 176px;
+  width: 176px;
 }
 
 @media screen and (max-width: 768px) {
-    .login-button_not-logged {
-        width: 152px;
-    }   
+  .login-button_not-logged {
+    width: 152px;
+  }
 }
 
 @media screen and (max-width: 480px) {
-    .login-button_not-logged {
-        width: 90%;
-    }   
+  .login-button_not-logged {
+    width: 90%;
+  }
 }

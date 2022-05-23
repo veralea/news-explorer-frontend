@@ -1,19 +1,19 @@
 .news-card__picture {
-    width: 100%;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    min-height: 272px;
-    background-size: cover;
+  width: 100%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  min-height: 272px;
+  background-size: cover;
 }
 
 @media screen and (max-width: 768px ) {
-    .news-card__picture {
-        min-height: 150px;
-    } 
+  .news-card__picture {
+    min-height: 150px;
+  }
 }
 
 @media screen and (max-width: 480px ) {
-    .news-card__picture {
-        min-height: 196px;
-    } 
+  .news-card__picture {
+    min-height: 196px;
+  }
 }

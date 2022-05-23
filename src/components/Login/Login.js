@@ -7,20 +7,19 @@ function Login(props) {
   const [password, setPassword] = useState('');
 
   const useFormObj = useFormWithValidation();
-  
+
   function handleEmailChange(e) {
     setEmail(e.target.value);
     useFormObj.handleChange(e);
   }
-  
+
   function handlePasswordChange(e) {
     setPassword(e.target.value);
     useFormObj.handleChange(e);
   }
 
-  
   return (
-    <PopupWithForm 
+    <PopupWithForm
       isOpen={props.isOpen}
       onClose={props.onClose}
       title='Sign in'
@@ -32,12 +31,12 @@ function Login(props) {
       textLink="Sign up"
     >
       <label className="popup__label" htmlFor="emailLog">Email</label>
-      <input type="email" id="emailLog" className="popup__input" 
+      <input type="email" id="emailLog" className="popup__input"
       onChange = {handleEmailChange}
       name="email" value={email} placeholder="Enter email" required/>
       <span className="popup__error"></span>
       <label className="popup__label" htmlFor="passwordLog">Password</label>
-      <input type="password" id="passwordLog" className="popup__input" 
+      <input type="password" id="passwordLog" className="popup__input"
       onChange = {handlePasswordChange}
       name="password" value={password} placeholder="Enter password" required/>
       <span className="popup__error"></span>
@@ -47,5 +46,5 @@ function Login(props) {
 
   );
 }
-    
+
 export default Login;

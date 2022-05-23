@@ -1,18 +1,17 @@
 .login-button__exit-icon {
-    background-color: transparent;
-    background-image: url(../../../images/Exit.svg);
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: none;
-    width: 18px;
-    height: 16px;
-    align-self: center;
-    justify-self: center;
-    margin-left: 10px;
-    cursor: pointer;
+  background-color: transparent;
+  background-image: url(../../../images/Exit.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: none;
+  width: 18px;
+  height: 16px;
+  align-self: center;
+  justify-self: center;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 .login-button__exit-icon:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
-

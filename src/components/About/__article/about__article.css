@@ -1,10 +1,10 @@
 .about__article {
-    max-width: 600px;
+  max-width: 600px;
 }
 
 @media screen and (max-width: 480px) {
-    .about__article {
-        width: 288px;
-        max-width: none;
-    }  
-} 
+  .about__article {
+    width: 288px;
+    max-width: none;
+  }
+}

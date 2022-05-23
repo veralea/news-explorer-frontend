@@ -3,7 +3,7 @@ function PopupWithForm(props) {
     e.preventDefault();
     if (props.useFormObj.isValid) {
       props.action(
-        e, 
+        e,
         props.useFormObj.values.email,
         props.useFormObj.values.password,
         props.useFormObj.values.username||null
@@ -11,12 +11,12 @@ function PopupWithForm(props) {
       props.useFormObj.resetForm();
     }
   }
-    
+
   return (
     <section className={`popup ${props.isOpen ? 'popup_opened' : ''}`}>
       <div className="popup__container">
-        <button 
-          className="button popup__close-button" 
+        <button
+          className="button popup__close-button"
           aria-label="close button"
           onClick={props.onClose}
         ></button>

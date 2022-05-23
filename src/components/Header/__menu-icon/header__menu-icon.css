@@ -1,16 +1,16 @@
 .header__menu-icon {
-    background-color: transparent;
-    background-image: url(../../../images/menu.svg);
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 24px;
-    height: 24px;
-    display: none;
+  background-color: transparent;
+  background-image: url(../../../images/menu.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 24px;
+  height: 24px;
+  display: none;
 }
 
 @media screen and (max-width: 480px) {
-    .header__menu-icon {
-        display: block;
-        cursor: pointer;
-      }
+  .header__menu-icon {
+    display: block;
+    cursor: pointer;
+  }
 }

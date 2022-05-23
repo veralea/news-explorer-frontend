@@ -1,22 +1,22 @@
 .news-card__delete {
-    right: 24px;
-    width: 40px; 
-    background-image: url(../../../images/trash-unactive.svg); 
-    background-size: 60% 60%;
+  right: 24px;
+  width: 40px;
+  background-image: url(../../../images/trash-unactive.svg);
+  background-size: 60% 60%;
 }
 
 .news-card__delete:hover {
-    background-image: url(../../../images/trash.svg); 
+  background-image: url(../../../images/trash.svg);
 }
 
 @media screen and (max-width: 768px) {
-    .news-card__delete {
-        right: 8px;  
-    } 
+  .news-card__delete {
+    right: 8px;
+  }
 }
 
 @media screen and (max-width: 480px) {
-    .news-card__delete {
-        right: 16px;  
-    } 
+  .news-card__delete {
+    right: 16px;
+  }
 }

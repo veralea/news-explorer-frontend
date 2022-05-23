@@ -1,33 +1,32 @@
 .news-card__tooltip {
-    right: 69px;  
-    padding: 0 22px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Roboto, Arial, sans-serif;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 1.17;
-    color: #000000;
-    visibility: hidden;
+  right: 69px;
+  padding: 0 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.17;
+  color: #000000;
+  visibility: hidden;
 }
 
 .news-card__like_unactive:hover ~ .news-card__tooltip  {
-    visibility: visible;   
+  visibility: visible;
 }
 
 @media screen and (max-width: 768px) {
-    .news-card__tooltip {
-        right: 53px;
-        padding: 0 20px;
-        font-size: 14px;
-        line-height: 1.71;
-
-    }
+  .news-card__tooltip {
+    right: 53px;
+    padding: 0 20px;
+    font-size: 14px;
+    line-height: 1.71;
+  }
 }
 
 @media screen and (max-width: 480px) {
-    .news-card__tooltip {
-        right: 61px;
-    }
+  .news-card__tooltip {
+    right: 61px;
+  }
 }

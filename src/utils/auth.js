@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.veralea-news-explorer.students.nomoreparties.sbs';
+export const BASE_URL = 'https://api.vera-news-explorer.students.nomoreparties.sbs';
 
 function getResponseData(res) {
   if (!res.ok) {
@@ -11,11 +11,9 @@ function getResponseData(res) {
         return Promise.reject(res.message);
       }
     })
-  } 
-  else {
+  } else {
     return res.json();
   }
-
 }
 
 export const register = (email, password, username) => {
@@ -37,21 +35,21 @@ export const authorize = (email, password) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({email, password}) 
+    body: JSON.stringify({email, password})
   })
-   .then((res) => 
+   .then((res) =>
       getResponseData(res)
  );
 };
 
 export const checkToken = (token) => {
-    return fetch(`${BASE_URL}/users/me`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      }
-    })
-    .then((res) => getResponseData(res));
-} 
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    }
+  })
+  .then((res) => getResponseData(res));
+}

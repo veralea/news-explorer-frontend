@@ -1,11 +1,8 @@
 .news-card__like_saved {
-    background-image: url(../../../../images/bookmark-saved.svg);
-    background-size: 40% 40%;
+  background-image: url(../../../../images/bookmark-saved.svg);
+  background-size: 40% 40%;
 }
 
 .news-card__like_saved:hover {
-    background-image: url(../../../../images/bookmark-saved.svg);
+  background-image: url(../../../../images/bookmark-saved.svg);
 }
-
-
-

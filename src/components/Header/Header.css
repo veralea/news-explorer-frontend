@@ -1,13 +1,13 @@
 .header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 80px;
-    background: transparent;
-    border-bottom: 1px solid #B6BCBF;
-    display: flex;
-    box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 80px;
+  background: transparent;
+  border-bottom: 1px solid #B6BCBF;
+  display: flex;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 768px) {
@@ -17,7 +17,7 @@
 }
 
 @media screen and (max-width: 480px) {
-    .header {
-      height: 56px;
-    }
+  .header {
+    height: 56px;
+  }
 }

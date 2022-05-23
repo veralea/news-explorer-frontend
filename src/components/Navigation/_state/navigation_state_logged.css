@@ -1,9 +1,9 @@
 .navigation_state_logged {
-    grid-template-columns: repeat(3,auto);
+  grid-template-columns: repeat(3,auto);
 }
 
 @media screen and (max-width: 480px) {
-    .navigation_state_logged {
-        grid-template-columns: 1fr;
-    }
+  .navigation_state_logged {
+    grid-template-columns: 1fr;
+  }
 }

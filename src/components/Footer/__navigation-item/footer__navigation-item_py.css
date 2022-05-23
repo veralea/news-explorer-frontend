@@ -1,6 +1,5 @@
 @media screen and (max-width: 480px) {
-    .footer__navigation-item_py {
-        grid-area: py;
-    }   
+  .footer__navigation-item_py {
+    grid-area: py;
+  }
 }
-

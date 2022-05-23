@@ -1,32 +1,32 @@
 .about__avatar {
-    margin: auto;
-    width: 464px;
-    height: 464px;
-    border-radius: 50%;
-    background-image: url(../../../images/avatar.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
+  margin: auto;
+  width: 464px;
+  height: 464px;
+  border-radius: 50%;
+  background-image: url(../../../images/avatar.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
 }
 
 
 @media screen and (max-width: 1440px) {
-    .about__avatar {
-        width: 32.22vw;
-        height: 32.22vw;
-    }  
-} 
+  .about__avatar {
+    width: 32.22vw;
+    height: 32.22vw;
+  }
+}
 
 @media screen and (max-width: 820px) {
-    .about__avatar {
-        width: 30.21vw;
-        height: 30.21vw;
-    }  
+  .about__avatar {
+    width: 30.21vw;
+    height: 30.21vw;
+  }
 }
 
 @media screen and (max-width: 480px) {
-    .about__avatar {
-        height: 272px;
-        width: 272px; 
-    }  
+  .about__avatar {
+    height: 272px;
+    width: 272px;
+  }
 }

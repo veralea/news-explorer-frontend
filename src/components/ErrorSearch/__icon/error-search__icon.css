@@ -1,13 +1,13 @@
 .error-search__icon {
-    display: block;
-    width: 96px;
-    height: 96px;
-    background-image: url(../../../images/not-found_v1.svg);
-    margin: 86px auto 24px;
+  display: block;
+  width: 96px;
+  height: 96px;
+  background-image: url(../../../images/not-found_v1.svg);
+  margin: 86px auto 24px;
 }
 
 @media screen and (max-width: 480px) {
-    .error-search__icon {
-        margin: auto;
-    } 
+  .error-search__icon {
+    margin: auto;
+  }
 }

@@ -1,22 +1,22 @@
 .news-card {
-    background: #FFFFFF;
-    border-radius: 20px;
-    width: 400px;
-    min-height: 576px;
-    position: relative;
-    cursor: pointer;
+  background: #FFFFFF;
+  border-radius: 20px;
+  width: 400px;
+  min-height: 576px;
+  position: relative;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
   .news-card {
-      width: 224px;
-      min-height: 420px;
-  }  
+    width: 224px;
+    min-height: 420px;
+  }
 }
 
 @media screen and (max-width: 480px) {
-    .news-card {
-        width: 288px;
-        min-height: 440px;
-    }  
+  .news-card {
+    width: 288px;
+    min-height: 440px;
   }
+}

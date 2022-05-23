@@ -1,10 +1,10 @@
 import SavedNewsCard from "../SavedNewsCard/SavedNewsCard";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 
-function SavedNews(props) {  
+function SavedNews(props) {
   return (
     <>
-      <SavedNewsHeader   
+      <SavedNewsHeader
         quantitySavedCards={props.quantitySavedCards}
         strKeywords={props.strKeywords}
         name={props.name}
@@ -15,18 +15,19 @@ function SavedNews(props) {
           {
             props.cards.map((card, ind) => {
               return(
-              <SavedNewsCard 
-                card={card} 
-                key={ind} 
+              <SavedNewsCard
+                card={card}
+                key={ind}
                 onDeleteButtonClick={() => props.onDeleteButtonClick(card)}
+                isLogged={props.isLogged}
               />
               )
             })
           }
           </ul>
         </div>
-      </section> 
-    </>  
+      </section>
+    </>
   );
 }
 

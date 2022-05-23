@@ -1,9 +1,9 @@
 .popup__label {
-    margin-bottom: 3px;
-    align-self: flex-start;
-    font-family: Inter, Arial, sans-serif;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 1.25;
-    color: #2F71E5;
+  margin-bottom: 3px;
+  align-self: flex-start;
+  font-family: Inter, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #2F71E5;
 }

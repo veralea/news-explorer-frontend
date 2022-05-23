@@ -14,3 +14,8 @@
   align-items: flex-start;
   appearance: none;
 }
+
+.popup__input:focus {
+  border-top: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+}
