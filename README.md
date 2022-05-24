@@ -20,14 +20,14 @@ This project uses the following functionality:
 14. Using React js
 15. Creating with Create React App
 16. JSX
-16. Functional and Class Components
-17. Navigation with React Router
-18. Front-End Authentication with React
-19. JWT token
-20. LocalStorage
-21. Context
-22. Hooks useState, useEffect, useHistory and own
-23. Working with APIs: Fetch API
+17. Functional and Class Components
+18. Navigation with React Router
+19. Front-End Authentication with React
+20. JWT token
+21. LocalStorage
+22. Context
+23. Hooks useState, useEffect, useHistory and own
+24. Working with APIs: Fetch API
 
 
 Link to this project:
